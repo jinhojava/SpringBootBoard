@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>게시물 작성폼</title>
+</head>
+<style>
+  .layout {
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 40px;
+  }
+
+  .layout input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .layout textarea {
+    width: 100%;
+    margin-top: 10px;
+    min-height: 300px;
+  }
+</style>
+<body>
+<h1> 수정 페이지입니다 </h1>
+<div class="layout">
+  <form th:action="@{/board/update/{id}(id=${board.id})}" method="post" enctype="multipart/form-data">
+    <input name="title" type="text" th:value="${board.title}" required>
+    <textarea name="content" th:text="${board.content}" required></textarea><!--value안먹힘text로-->
+    <img th:if="${board.hasImage()}" th:src="@{/images/{id}(id=${board.id})}" width="500" height="300"><!--이미지보여주기-->
+    <!--이미지가 있는경우에만 이미지박스생성-->
+
+    <input type="file" name="file">  <!--파일첨부위해, 컨트롤러매개변수랑 일치시키기-->
+    <button type="submit">수정</button>
+
+  </form>
+</div>
+</body>
+</html>

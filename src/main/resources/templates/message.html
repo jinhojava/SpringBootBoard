@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var message = [[${message}]];
+    alert(message);
+
+    location.replace([[${searchUrl}]]);
+    /*]]>*/
+</script>
+
+<body>
+
+</body>
+</html>
+<!-- /*<![CDATA[*/ 및 /*]]>*/ 주석은 JavaScript 코드 내에 XML 주석을 사용할 때 발생할 수 있는 문제를 피하기 위해 사용됩니다. 이들 주석은 브라우저가 JavaScript 코드로 해석하지만, XML 파서는 무시합니다.
+var message = [[${message}]];는 Thymeleaf의 표현식 문법을 사용하여 서버에서 전달된 message 변수의 값을 JavaScript 변수에 할당하는 부분입니다.
+alert(message);는 JavaScript의 alert() 함수를 사용하여 message 변수에 저장된 값을 경고창으로 표시합니다.
+location.replace([[${searchUrl}]]);는 현재 창의 URL을 searchUrl 변수의 값으로 대체하여 페이지를 다시로드하는 JavaScript 코드입니다. 이것은 일종의 리다이렉트 역할을 합니다.
+-->

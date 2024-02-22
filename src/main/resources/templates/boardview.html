@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 상세 페이지</title>
+</head>
+<body>
+<a href="/">홈화면</a>
+    <h1 th:text="${board.title}"></h1>
+    <p th:text="${board.content}"></p>
+    <img th:if="${board.hasImage()}" th:src="@{/images/{id}(id=${board.id})}" width="500" height="300"><!--이미지보여주기-->
+    <!--이미지가 있는경우에만 이미지박스생성-->
+
+
+<a th:href="@{/board/delete(id=${board.id})}">글삭제</a> <!--RequestParam버전-->
+<a th:href="@{/board/modify/{id}(id=${board.id})}">수정</a><!--PathVariable버전-->
+
+</body>
+</html>

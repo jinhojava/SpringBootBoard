@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><!--타임리프적용-->
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 리스트 페이지</title>
+</head>
+<style>
+    .layout {
+        width: 500px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+</style>
+
+<body>
+<a href="/">홈화면</a>
+
+<div class="layout">
+    <table>
+        <thead>
+        <tr>
+            <th>글번호</th>
+            <th>제목</th>
+        </tr>
+        </thead>
+        <tbody>    <!--반복문 th문법 addattribute로 list받아와서 각각 가져와 id title출력-->
+        <tr th:each="board : ${list}">
+            <td th:text="${board.id}">1</td>
+            <td>
+                <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a>   <!--Requestparam버전-->
+                <!--localhost:8080/board/view?id=board.id이런식으로됨. $부분은 동적으로 변화하는부분-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--하단에 페이지블록 보여주기-->
+    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}"><!--(시작번호,끝번호) 시작번호에서 끝번호까지반복-->                           <!--searchkeyword: 만약 list가 검색페이지라면 검색키워드도 넘겨줘야 검색키워드 모음페이지에서 페이지이동한다.)-->
+        <a th:if="${page!=nowPage}" th:href="@{/board/list(page=${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a> <!--Pageable은 0부터 시작하니 파라미터 전달할때 1빼주자-->
+        <strong th:if="${page==nowPage}" th:text="${page}" style="color: red"></strong><!--현재페이지면 링크안달고 빨갛게-->
+    </th:block>
+
+    <form th:action="@{/board/list}" method="get">
+        <input type="text" name="searchKeyword">
+        <button type="submit">검색</button>
+    </form>
+</div>
+</body>
+</html>
